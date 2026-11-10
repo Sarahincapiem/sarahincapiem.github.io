@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sara Hincapié · Diseñadora UX</title>
+<meta name="description" content="Portafolio de Sara Hincapié, diseñadora UX en transformación digital y CTI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+/* ========== 1. TOKENS (cambia colores y fuentes aquí) ========== */
+:root{
+  --crema:#F1F1E8; --azul:#597694; --sky:#6DA0BD; --verde:#8FB78F;
+  --rosa:#E37083; --gris:#D9D9D9; --texto:#444;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,serif;
+  --pad:clamp(20px,5vw,64px);
+  --max:1200px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--crema);color:var(--texto);font-family:var(--sans);line-height:1.6;letter-spacing:-.01em}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+
+/* ========== 2. NAV ========== */
+header{position:sticky;top:0;z-index:20;padding:12px var(--pad) 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;
+  padding:0 10px;background:var(--azul);border-radius:999px;box-shadow:0 8px 24px rgba(89,118,148,.35)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--crema);font-weight:500}
+.brand img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:var(--gris);border:2px solid var(--crema); transition: transform .15s linear;}
+nav a{font-family:var(--sans);font-weight:500;font-size:.95rem;color:var(--crema);text-decoration:none;
+  padding:9px 20px;border-radius:999px;margin-left:4px;transition:background .25s,color .25s}
+nav a:hover{background:rgba(241,241,232,.2)}
+nav a.active{background:var(--crema);color:var(--azul)}
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--rosa);width:0;z-index:30}
+
+/* ========== 3. TIPOGRAFÍA / UTILIDADES ========== */
+h1,h2,h3{color:var(--azul);font-weight:400;line-height:1.15;letter-spacing:-.03em}
+h1{font-size:clamp(2rem,5vw,3.6rem)}
+h2{font-size:clamp(1.6rem,3vw,2.4rem)}
+.tag{font-size:.8rem;color:var(--sky);text-transform:uppercase;letter-spacing:.08em}
+.lead{font-size:clamp(1.3rem,2.8vw,2.1rem);line-height:1.3;color:var(--texto)}
+.btn{display:inline-block;font-family:var(--serif);font-style:italic;color:var(--sky);
+  border:1px solid var(--sky);padding:6px 14px;text-decoration:none;transition:.2s}
+.btn:hover{background:var(--sky);color:#fff}
+hr{border:0;border-top:1px solid #c9d3c4;margin:0}
+section{padding:56px 0}
+
+/* ========== 4. VISTAS (mini router por #hash) ========== */
+.view{display:none}
+.view.on{display:block;animation:fade .5s ease}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ========== 5. HOME: filas de proyecto ========== */
+.hero{padding:72px 0 48px}
+.hero h1 span{color:var(--sky)}
+.project{display:grid;grid-template-columns:1fr 1.6fr;gap:48px;align-items:center;padding:48px 0;
+  border-top:1px solid #c9d3c4;text-decoration:none}
+.project .thumb{overflow:hidden;border-radius:6px;aspect-ratio:16/9;background:var(--gris)}
+.project .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.project:hover .thumb img{transform:scale(1.05)}
+.project h2{margin:8px 0 18px}
+.project:hover .btn{background:var(--sky);color:#fff}
+.quote{padding:72px 0}
+
+/* ========== 6. CASO DE ESTUDIO ========== */
+.case-head{padding:56px 0 16px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px;
+  border-top:1px solid #c9d3c4;border-bottom:1px solid #c9d3c4;padding:20px 0;margin:32px 0}
+.meta b{display:block;font-weight:400;font-size:.8rem;color:var(--sky);text-transform:uppercase;letter-spacing:.08em}
+.case-grid{display:grid;grid-template-columns:200px 1fr;gap:48px;padding:40px 0}
+.case-grid aside{position:sticky;top:96px;align-self:start}
+.case-grid aside a{display:block;padding:6px 0;color:var(--sky);text-decoration:none;font-size:.9rem;
+  border-left:2px solid transparent;padding-left:12px}
+.case-grid aside a.active{border-color:var(--azul);color:var(--azul)}
+.block{margin-bottom:56px}
+.block h2{margin-bottom:16px}
+.block p,.block li{max-width:68ch;margin-bottom:10px}
+.block ul{padding-left:1.1em}
+.shot{margin:24px 0;border-radius:6px;overflow:hidden;background:var(--gris);cursor:zoom-in;position:relative}
+.shot img{width:100%;transition:transform .4s}
+.shot:hover img{transform:scale(1.02)}
+.shot figcaption{font-size:.8rem;padding:8px 12px;color:#777;background:var(--crema)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.gallery .shot{margin:0}
+.swatches{display:flex;gap:10px;flex-wrap:wrap}
+.swatches i{width:64px;height:64px;border-radius:50%;display:block}
+.next{display:flex;justify-content:space-between;padding:40px 0;border-top:1px solid #c9d3c4}
+
+/* ========== 7. SOBRE MÍ ========== */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:32px 0}
+.about-grid dl div{display:flex;gap:16px;border-top:1px solid #c9d3c4;padding:14px 0;font-size:.9rem}
+.about-grid dt{color:var(--azul);min-width:130px}
+.about-grid img{border-radius:6px;width:100%}
+
+/* ========== 8. FOOTER ========== */
+footer{padding:40px 0 64px;text-align:center}
+.links{display:flex;justify-content:space-between;border-top:1px solid #c9d3c4;padding:28px 0;margin-bottom:40px}
+.links a{font-size:clamp(1.4rem,3vw,2rem);color:var(--azul);text-decoration:none;border-bottom:2px solid var(--azul)}
+.links a:hover{color:var(--rosa);border-color:var(--rosa)}
+footer p{color:var(--sky);font-size:clamp(1.2rem,2.5vw,1.8rem)}
+
+/* ========== 9. LIGHTBOX ========== */
+#lb{position:fixed;inset:0;background:rgba(20,24,40,.92);display:none;place-items:center;z-index:50;cursor:zoom-out;padding:24px}
+#lb.on{display:grid}
+#lb img{max-height:90vh;border-radius:6px}
+
+/* ========== 10. REVEAL AL HACER SCROLL ========== */
+.rv{opacity:0;transform:translateY(24px);transition:.7s ease}
+.rv.in{opacity:1;transform:none}
+
+/* ========== 11. RESPONSIVE ========== */
+@media(max-width:800px){
+  .project,.about-grid,.case-grid{grid-template-columns:1fr;gap:24px}
+  .case-grid aside{display:none}
+  nav a{padding:8px 12px;font-size:.85rem}
+  .brand span{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#/"><img src="Img/Foto-perfil.jpeg" alt="" onerror="this.style.visibility='hidden'"><span>Sara Hincapié</span></a>
+    <nav>
+      <a href="#/" data-nav="home">Home</a>
+      <a href="#/sobre-mi" data-nav="sobre-mi">Sobre mí</a>
+      <a href="#contacto" data-nav="contacto">Contacto</a>
+    </nav>
+  </div>
+  <div id="progress"></div>
+</header>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<div class="view" id="home">
+  <div class="wrap">
+    <div class="hero">
+      <h1><span>Hola soy Sara!</span><br>Me apasiona el diseño que hay detrás de los grandes resultados, convirtiendo procesos en formas de pensar que crean valor real.</h1>
+    </div>
+
+    <a class="project rv" href="#/faroguides">
+      <div><p class="tag">Diseño UX</p><h2>FaroGuides</h2><span class="btn">Explorar proyecto</span></div>
+      <div class="thumb"><img src="Img/Faroguides/portada.webp" alt="Logo de FaroGuides"></div>
+    </a>
+
+    <a class="project rv" href="#/designops">
+      <div><p class="tag">DesignOps</p><h2>CeibaDigitalOps</h2><span class="btn">Explorar proyecto</span></div>
+      <div class="thumb"><img src="Img/DigitalOps/portada.webp" alt="Marco DesignOps"></div>
+    </a>
+
+    <div class="quote rv">
+      <h2>"Me dedico a crear experiencias significativas a través de un enfoque de diseño multidisciplinario."</h2>
+      <p style="margin-top:20px"><a class="btn" href="#/sobre-mi">Descubre mis habilidades y pasiones</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= SOBRE MÍ ================= -->
+<div class="view" id="sobre-mi">
+  <div class="wrap">
+    <section>
+      <p class="lead">Me defino como una amante de la estrategia. Veo el mundo a través de los ojos de una diseñadora y traduzco esa perspectiva en soluciones reales. Diseñamos para resolver problemas complejos y atender necesidades importantes.</p>
+      <p class="lead" style="margin-top:28px">Para mí, el diseño es una herramienta de transformación: no solo cambia lo que hacemos, sino cómo pensamos.</p>
+    </section>
+    <div class="about-grid">
+      <div><p class="tag">Ahora mismo estoy…</p></div>
+      <div>
+        <dl>
+          <div><dt>Escuchando:</dt><dd>Música de Zara Larsson</dd></div>
+          <div><dt>Soñando con:</dt><dd>Un viaje a Islandia</dd></div>
+          <div><dt>Comiendo en:</dt><dd>Mi escritorio</dd></div>
+        </dl>
+        <img src="Img/Foto-perfil.jpeg" alt="Sara Hincapié" style="margin-top:24px" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CASO: FAROGUIDES ================= -->
+<div class="view" id="faroguides">
+  <div class="wrap">
+    <div class="case-head">
+      <p class="tag">Diseño UX</p>
+      <h1>FaroGuides</h1>
+      <p class="lead" style="margin-top:16px">Una app de audioguías para explorar Medellín de forma autónoma, sin conexión.</p>
+      <div class="meta">
+        <div><b>Rol</b>Service Design · UX/UI · Web</div>
+        <div><b>Cliente</b>Ultrasonido Studio</div>
+        <div><b>Año</b>2025</div>
+        <div><b>Enlace</b><a href="#" target="_blank" rel="noopener">Visitar el sitio web</a></div>
+      </div>
+    </div>
+
+    <div class="case-grid">
+      <aside data-spy>
+        <a href="#fg-contexto">Contexto</a>
+        <a href="#fg-objetivos">Objetivos</a>
+        <a href="#fg-solucion">La solución</a>
+        <a href="#fg-visual">Key visual</a>
+        <a href="#fg-rol">Mi rol</a>
+        <a href="#fg-web">Sitio web</a>
+      </aside>
+      <div>
+        <div class="block" id="fg-contexto">
+          <h2>Contexto</h2>
+          <p>FaroGuides nace de la necesidad de viajeros reales. Desde Ultrasonido Studio se desarrolló una app de audioguías que permitía explorar Medellín de forma autónoma, integrando el diseño sonoro y la tecnología para crear rutas narrativas disponibles sin conexión.</p>
+          <p>Sin embargo, la marca enfrentaba un <b>reto clave</b>: no contaba con un modelo de negocio sostenible hacia el usuario final, y la experiencia actual no era lo suficientemente memorable para monetizarla.</p>
+          <figure class="shot"><img src="Img/Faroguides/Pitch Presentación (2).png" alt="Logo FaroGuides" loading="lazy"><figcaption>Logotipo rediseñado</figcaption></figure>
+        </div>
+
+        <div class="block" id="fg-objetivos">
+          <h2>Objetivos</h2>
+          <ul>
+            <li>Rediseñar la experiencia para que el viajero esté dispuesto a pagar.</li>
+            <li>Crear un sistema phygital memorable que conecte contenido, ciudad y usuario.</li>
+            <li>Replantear producto, público y modelo B2C para faroguides.</li>
+          </ul>
+        </div>
+
+        <div class="block" id="fg-solucion">
+          <h2>La solución</h2>
+          <p>Cuatro entregables: key visual, prototipos MVP, mockups y MVS.</p>
+          <div class="gallery">
+            <figure class="shot"><img src="Img/Faroguides/SOLUCION.jpg" alt="Slide de la solución" loading="lazy"></figure>
+            <figure class="shot"><img src="Img/Faroguides/ENTREGABLE.jpg" alt="Prototipo MVP" loading="lazy"></figure>
+          </div>
+        </div>
+
+        <div class="block" id="fg-visual">
+          <h2>Key visual</h2>
+          <p>Comenzamos con un rebranding que refrescó la marca y sentó la base visual para construir todos los productos del servicio.</p>
+          <div class="swatches" aria-label="Paleta de colores">
+            <i style="background:#307EEF"></i><i style="background:#388E06"></i>
+            <i style="background:#F7CE52"></i><i style="background:#F0F0F0"></i><i style="background:#191F38"></i>
+          </div>
+          <figure class="shot"><img src="Img/Faroguides/KEYVISUAL.jpg" alt="Key visual: logotipo, paleta y tipografía" loading="lazy"><figcaption>Logotipo · Paleta · Tipografía (Blinker + Instrument Sans)</figcaption></figure>
+        </div>
+
+        <div class="block" id="fg-rol">
+          <h2>Mi rol</h2>
+          <ul>
+            <li><b>Liderazgo en Service Design:</b> validación de la experiencia mediante investigación de campo y entrevistas.</li>
+            <li><b>UX/UI &amp; Accesibilidad:</b> arquitectura de información y estándares de usabilidad.</li>
+            <li><b>Web Development:</b> montaje y desarrollo técnico del sitio (build-stage).</li>
+          </ul>
+        </div>
+
+        <div class="block" id="fg-web">
+          <h2>Sitio web</h2>
+          <p>Primer punto de contacto para los viajeros y aliados: los turistas descubren la propuesta y adquieren su faropass; los aliados pueden registrarse para hacer parte del ecosistema.</p>
+          <figure class="shot"><img src="Img/Faroguides/WEB.jpg" alt="Sitio web FaroGuides en laptop" loading="lazy"></figure>
+          <a class="btn" href="#" target="_blank" rel="noopener">Visitar el sitio web</a>
+        </div>
+      </div>
+    </div>
+    <div class="next"><a class="btn" href="#/">← Todos los proyectos</a><a class="btn" href="#/designops">Siguiente: CeibaDigitalOps →</a></div>
+  </div>
+</div>
+
+<!-- ================= CASO: DESIGNOPS ================= -->
+<div class="view" id="designops">
+  <div class="wrap">
+    <div class="case-head">
+      <p class="tag">DesignOps · UX</p>
+      <h1>CeibaDigitalOps</h1>
+      <p class="lead" style="margin-top:16px">Diagnóstico de las dinámicas internas del equipo Digital de Ceiba para eliminar cuellos de botella y amplificar su impacto.</p>
+      <div class="meta">
+        <div><b>Rol</b>Auditoría · Diagnóstico · Arquitectura de proyecto</div>
+        <div><b>Cliente</b>Ceiba Software</div>
+        <div><b>Año</b>TODO</div>
+      </div>
+    </div>
+    <div class="case-grid">
+      <aside data-spy>
+        <a href="#do-contexto">Contexto</a>
+        <a href="#do-objetivos">Objetivos</a>
+        <a href="#do-proceso">Proceso</a>
+        <a href="#do-rol">Mi rol</a>
+        <a href="#do-hallazgos">Hallazgos</a>
+      </aside>
+      <div>
+        <div class="block" id="do-contexto">
+          <h2>Contexto</h2>
+          <p>Ceiba Software es una empresa líder en tecnología con un equipo Digital encargado de la comunicación, el diseño y los canales internos. A pesar de ser el soporte central de los activos de la compañía, el equipo enfrentaba cuellos de botella operativos que afectaban la eficiencia y la calidad de sus entregables.</p>
+          <div class="pull">
+            <span class="pull-side">DesignOps</span>
+            <div>
+              <p class="pull-title"><b style="font-weight:500">Diseño</b> <em>o ser un diseñador</em></p>
+              <blockquote>“Transformar la manera en desarrollar productos, servicios, procesos y cualquier estrategia de la empresa”</blockquote>
+              <p class="pull-foot">Design Thinking.<br>Lidera el presente.<br>Crea el futuro.</p>
+              <img src="Img/DigitalOps/CeibaDigitalOPS.pptx (6).jpg" alt="Ceiba" onerror="this.style.display='none'">
+            </div>
+          </div>
+          <p>El desafío principal era <b style="color:var(--sky)">optimizar el desempeño del equipo</b> mediante la gestión eficiente de personas, procesos y herramientas. El proceso consistió en realizar un diagnóstico profundo de las dinámicas internas para amplificar el valor e impacto del trabajo del equipo Digital en la organización.</p>
+          <figure class="shot"><img src="Img/DigitalOps/marco.webp" alt="Marco DesignOps: cómo trabajamos juntos, cómo hacemos el trabajo, cómo nuestro trabajo crea impacto" loading="lazy"><figcaption>Marco de referencia DesignOps · clic para ampliar</figcaption></figure>
+        </div>
+
+        <div class="block" id="do-objetivos">
+          <h2>Objetivos</h2>
+          <ul>
+            <li>Identificar y eliminar fricciones en el flujo de trabajo para mejorar los tiempos de entrega.</li>
+            <li>Alinear roles y habilidades para potenciar el crecimiento profesional y la motivación.</li>
+            <li>Establecer canales de comunicación y herramientas de documentación claros y efectivos.</li>
+          </ul>
+        </div>
+
+        <div class="block" id="do-proceso">
+          <h2>Proceso</h2>
+          <p>Mapeo del flujo de trabajo entre quien solicita, el líder de Marketing y el equipo Digital.</p>
+          <figure class="shot"><img src="Img/DigitalOps/Copy of Flowchart.jpg" alt="Diagrama de flujo por carriles del proceso de diseño de eventos" loading="lazy"><figcaption>Flujo de proceso · clic para ampliar</figcaption></figure>
+        </div>
+
+        <div class="block" id="do-rol">
+          <h2>Mi rol</h2>
+          <div class="roles">
+            <p><b>Auditoría interna:</b> realización de un análisis exhaustivo del talento, evaluando cargas de trabajo, habilidades clave y la cultura interna del equipo.</p>
+            <p><b>Diagnóstico de procesos:</b> identificación de brechas críticas en las prácticas de comunicación, la gestión de reuniones y el aprovechamiento de herramientas tecnológicas.</p>
+            <p><b>Arquitectura de proyecto:</b> definición de la estructura de la solución y los requerimientos técnicos necesarios para la optimización operativa.</p>
+            <p><b>Consolidación de hallazgos:</b> generación de accionables estratégicos orientados a transformar la operatividad del equipo en un sistema escalable y eficiente.</p>
+            <figure class="shot"><img src="Img/DigitalOps/Consolidado de hallazgos y accionables.pptx (1).jpg" alt="Entregable de hallazgos y soluciones" loading="lazy"><figcaption>Entregable de hallazgos y soluciones · clic para ampliar</figcaption></figure>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="next"><a class="btn" href="#/faroguides">← FaroGuides</a><a class="btn" href="#/">Todos los proyectos →</a></div>
+  </div>
+</div>
+
+</main>
+
+
+<footer id="contacto">
+  <div class="wrap">
+    <div class="links">
+      <a href="mailto:sarahincapiemendoza@gmail.com">Email</a>
+      <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
+      <a href="https://www.linkedin.com/in/sarahincapiemendoza/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p>© Sara Hincapié 2026</p>
+  </div>
+</footer>
+
+<div id="lb" role="dialog" aria-label="Imagen ampliada"><img alt=""></div>
+
+<script>
+/* ===== Router: #/ , #/sobre-mi , #/faroguides , #/designops ===== */
+const views=[...document.querySelectorAll('.view')];
+function route(){
+  const h=location.hash;
+  if(h.startsWith('#fg-')||h.startsWith('#do-')||h==='#contacto')return; // anclas internas
+  const id=(h.replace('#/','')||'home');
+  const target=views.find(v=>v.id===id)||views[0];
+  views.forEach(v=>v.classList.toggle('on',v===target));
+  document.querySelectorAll('nav a[data-nav]').forEach(a=>a.classList.toggle('active',a.dataset.nav===target.id));
+  window.scrollTo(0,0);
+  observe();
+}
+addEventListener('hashchange',route);
+
+/* ===== Reveal al hacer scroll ===== */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+function observe(){document.querySelectorAll('.view.on .rv, .view.on .block').forEach(el=>{el.classList.add('rv');io.observe(el)})}
+
+/* ===== Barra de progreso ===== */
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  document.getElementById('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+   document.querySelector('.brand img').style.transform='rotate('+(h.scrollTop/3)+'deg)';
+});
+
+/* ===== Menú lateral activo (scroll-spy) ===== */
+const spy=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    document.querySelectorAll('aside a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));
+  }}),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('.block[id]').forEach(b=>spy.observe(b));
+
+/* ===== Lightbox ===== */
+const lb=document.getElementById('lb'),lbImg=lb.querySelector('img');
+document.addEventListener('click',e=>{
+  const shot=e.target.closest('.shot');
+  if(shot){lbImg.src=shot.querySelector('img').src;lb.classList.add('on')}
+  else if(lb.classList.contains('on'))lb.classList.remove('on');
+});
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+
+/* ===== Arranque: va al final para que todo ya esté definido ===== */
+route();
+</script>
+</body>
+</html>
